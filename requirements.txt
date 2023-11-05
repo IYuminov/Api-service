@@ -64,4 +64,4 @@ uvloop==0.18.0
 watchfiles==0.20.0
 wcwidth==0.2.9
 websockets==11.0.3
-zipp==3.17.0
+zipp==3.15.0
