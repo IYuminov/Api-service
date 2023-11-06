@@ -4,7 +4,6 @@ from pydantic import BaseModel
 import time
 
 
-
 app = FastAPI()
 
 
@@ -50,10 +49,10 @@ def root() -> str:
 
 # Get Post
 @app.post("/post")
-async def post():
+async def post() -> dict:
     add_data_timestamp = Timestamp(id=len(post_db), timestamp=round(time.time()))
     post_db.append(add_data_timestamp)
-    return add_data_timestamp
+    return dict(add_data_timestamp)
 
 
 # Get all Dogs
@@ -83,10 +82,10 @@ async def post(name_dog: str, kind_dog: str) -> dict:
 
 # Get Dog By Pk
 @app.get("/dog/{pk}")
-async def get(pk: str):
+async def get(pk: str) -> dict:
     for i in dogs_db.values():
         if i.pk == int(pk):
-            return i
+            return dict(i)
 
 
 # Update Dog by pk ??
