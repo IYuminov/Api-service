@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import time
 
 
+
 app = FastAPI()
 
 
@@ -61,7 +62,6 @@ async def get() -> dict:
     return dogs_db
 
 
-
 # Get Dogs by type
 @app.get("/dog")
 async def get(kind: str) -> list:
@@ -72,12 +72,12 @@ async def get(kind: str) -> list:
     return result
 
 
-# Create Dog
+# Create Dog??
 @app.post("/dog")
 async def post(name_dog: str, kind_dog: str) -> dict:
     add_dog = Dog(name= name_dog, pk= len(dogs_db), kind= DogType(kind_dog))
     dogs_db[len(dogs_db)] = add_dog
-    return add_dog
+    return dict(add_dog)
 
 
 
@@ -89,12 +89,11 @@ async def get(pk: str):
             return i
 
 
-
-# Update Dog by pk
+# Update Dog by pk ??
 @app.patch("/dog/{old_pk}")
 async def patch(new_name: str, old_pk: str, new_kind: str) -> dict:
     for i in range(len(dogs_db)):
         if dogs_db[i].pk == int(old_pk):
             dogs_db[i].name = new_name
             dogs_db[i].kind = DogType(new_kind)
-            return dogs_db[i]
+            return dict(dogs_db[i])
