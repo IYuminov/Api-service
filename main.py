@@ -58,7 +58,7 @@ async def post():
 # Get all Dogs
 @app.get("/dogs")
 async def get() -> dict:
-    return dogs_db.json()
+    return dogs_db
 
 
 
