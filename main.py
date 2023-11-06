@@ -1,6 +1,7 @@
 from enum import Enum
 from fastapi import FastAPI
 from pydantic import BaseModel
+import time
 
 
 app = FastAPI()
@@ -42,13 +43,13 @@ post_db = [
 
 # Root
 @app.get('/')
-async def root() -> str:
+def root() -> str:
     return 'Welcome our clinic!'
 
 
 # Get Post
 @app.post("/post")
-async def post() -> dict:
+async def post():
     add_data_timestamp = Timestamp(id=len(post_db), timestamp=round(time.time()))
     post_db.append(add_data_timestamp)
     return add_data_timestamp
@@ -57,7 +58,7 @@ async def post() -> dict:
 # Get all Dogs
 @app.get("/dogs")
 async def get() -> dict:
-    return dogs_db
+    return dogs_db.json()
 
 
 
@@ -81,9 +82,8 @@ async def post(name_dog: str, kind_dog: str) -> dict:
 
 
 # Get Dog By Pk
-# решение годится, если pk уникальный
 @app.get("/dog/{pk}")
-async def get(pk: str) -> dict:
+async def get(pk: str):
     for i in dogs_db.values():
         if i.pk == int(pk):
             return i
