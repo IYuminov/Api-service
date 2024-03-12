@@ -46,6 +46,10 @@ post_db = [
 def root() -> str:
     return 'Welcome our clinic!'
 
+# Get health container
+@app.get('/health')
+def get() -> dict:
+    return {'status': 'OK'}
 
 # Get Post
 @app.post("/post")
@@ -71,7 +75,7 @@ async def get(kind: str) -> list:
     return result
 
 
-# Create Dog??
+# Create Dog
 @app.post("/dog")
 async def post(name_dog: str, kind_dog: str) -> dict:
     add_dog = Dog(name= name_dog, pk= len(dogs_db), kind= DogType(kind_dog))
@@ -88,7 +92,7 @@ async def get(pk: str) -> dict:
             return dict(i)
 
 
-# Update Dog by pk ??
+# Update Dog by pk
 @app.patch("/dog/{old_pk}")
 async def patch(new_name: str, old_pk: str, new_kind: str) -> dict:
     for i in range(len(dogs_db)):
