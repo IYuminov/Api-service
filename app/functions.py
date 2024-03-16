@@ -23,7 +23,7 @@ def save_configuration(db: Session, config: schema.Items):
     return config_model
 
 def get_configuration(db: Session):
-    return db.query(database.Items).first()
+    return db.query(database.Items).all()
 
 def delete_configuration(db: Session):
     db.query(database.Items).delete()
