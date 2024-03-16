@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  api-service:
+    build: .
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --port 80'
+    volumes:
+      - .:/usr/src/Api_service
+    ports:
+      - 80:80
+    depends_on:
+      - db
+    healthcheck:
+      test: curl --fail http://localhost:80/health || exit 1
+      interval: 5s
+      retries: 5
+      start_period: 10s
+      timeout: 10s
+  db:
+    image: postgres:12.18-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: db-service
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    expose: 
+      - 5432
+volumes:
+  postgres_data:

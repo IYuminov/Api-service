@@ -1,10 +1,5 @@
-# Clinic_service
-Как сказал заказчик: "Клинике необходим микросервис для хранения и обновления информации для собак!"
+### В этом приложении практикуюсь с FastAPI, Postgres, docker-compose и многим другим.
 
-Сервис работает из контейнера.
-Ссылка на DockerHub: https://hub.docker.com/repository/docker/ivyuminov/clinic_service/general
-
-Запуск контейнера: docker run --name my_cont -p 5555:5555 ivyuminov/clinic_service:0.1
-
+Приложение запускается командой: docker-compose up --build
 
 Автор: @IYuminov
